@@ -90,6 +90,21 @@
   .q[open] summary::after{content:"–"}
   .q p{padding:0 22px 20px;color:var(--muted);font-size:15px}
 
+  .acct{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:30px;box-shadow:var(--shadow)}
+  .acct-top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:22px}
+  .conn{display:flex;align-items:center;gap:11px;font-weight:700;font-size:16px}
+  .dot-ok{width:11px;height:11px;border-radius:50%;background:var(--green);box-shadow:0 0 0 4px var(--green-bg)}
+  .acct-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:24px}
+  .stat{background:var(--soft);border-radius:12px;padding:18px 20px}
+  .stat .k{color:var(--muted);font-size:13px;font-weight:600}
+  .stat .v{font-size:26px;font-weight:800;letter-spacing:-1px;margin-top:4px}
+  .bar{height:9px;border-radius:999px;background:#eceaf3;overflow:hidden;margin-top:12px}
+  .bar i{display:block;height:100%;background:var(--grad);width:38%}
+  .sites{width:100%;border-collapse:collapse;margin-top:4px}
+  .sites th,.sites td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--line);font-size:14px}
+  .sites th{color:var(--muted);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.4px}
+  .sites tr:last-child td{border-bottom:none}
+  @media(max-width:700px){.acct-grid{grid-template-columns:1fr}}
   .finalcta{margin:96px 0 0;background:var(--grad);border-radius:24px;padding:60px 40px;text-align:center;color:#fff}
   .finalcta h2{font-size:34px;letter-spacing:-1px;font-weight:800;margin-bottom:10px}
   .finalcta p{opacity:.92;font-size:17px;margin-bottom:26px}
@@ -106,7 +121,7 @@
 <header>
   <div class="wrap nav">
     <div class="brand"><span class="mark">d</span>dokan <span class="ai">AI</span></div>
-    <nav><a href="#pricing">Pricing</a><a href="#compare">Compare</a><a href="#faq">FAQ</a><a>Docs</a></nav>
+    <nav><a href="#pricing">Pricing</a><a href="#compare">Compare</a><a href="#account">Connected Site</a><a href="#faq">FAQ</a><a>Docs</a></nav>
     <a class="cta" href="#pricing">Buy Now</a>
   </div>
 </header>
@@ -225,6 +240,29 @@
       <tr><td>Priority support</td><td class="no">—</td><td class="no">—</td><td class="pop-col no">—</td><td class="yes">✓</td></tr>
     </tbody>
   </table>
+</section>
+
+<section class="wrap" id="account">
+  <div class="section-h"><h2>Your connected sites</h2><p>One Dokan AI SaaS account powers every connected marketplace — no API keys to manage</p></div>
+  <div class="acct">
+    <div class="acct-top">
+      <div class="conn"><span class="dot-ok"></span> Connected to Dokan AI · <span style="background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent">Pro plan</span></div>
+      <button class="btn" style="width:auto;padding:10px 20px;margin:0">Manage billing</button>
+    </div>
+    <div class="acct-grid">
+      <div class="stat"><div class="k">Current plan</div><div class="v">Pro</div></div>
+      <div class="stat"><div class="k">Credits this month</div><div class="v">5,700 <span style="font-size:14px;color:var(--muted);font-weight:600">/ 15,000</span></div><div class="bar"><i></i></div></div>
+      <div class="stat"><div class="k">Connected sites</div><div class="v">2</div></div>
+    </div>
+    <table class="sites">
+      <thead><tr><th>Site</th><th>Plan</th><th>Credits used</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>marketplace.com</td><td>Pro</td><td>5,700 / 15,000</td><td><span class="dot-ok" style="display:inline-block;margin-right:7px"></span>Connected</td></tr>
+        <tr><td>shop.example.org</td><td>Starter</td><td>1,200 / 5,000</td><td><span class="dot-ok" style="display:inline-block;margin-right:7px"></span>Connected</td></tr>
+      </tbody>
+    </table>
+    <p style="color:var(--muted);font-size:13.5px;margin-top:18px">Connect a new site from <b>WP Admin → Dokan → Settings → AI</b> — one click, no API key. Credits are shared across sites on the same account; vendors can be granted AI via subscription packs or per-vendor settings.</p>
+  </div>
 </section>
 
 <section class="wrap" id="faq">
