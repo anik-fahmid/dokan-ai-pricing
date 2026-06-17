@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dokan AI — Connected Sites</title>
+<style>
+  :root{
+    --purple:#7047EB; --purple-2:#A244FF; --pink:#E23B7B;
+    --ink:#16123a; --muted:#6a6790; --line:#eceaf4; --soft:#f7f6fb;
+    --green:#16b364; --green-bg:#e7f8ef; --amber:#ff8a3d; --amber-bg:#fff1e6; --red:#e23b5b;
+    --grad:linear-gradient(120deg,#7047EB 0%,#A244FF 60%,#E23B7B 130%);
+    --sidebar:#1b1740; --shadow:0 18px 50px -30px rgba(80,40,200,.4);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--soft);-webkit-font-smoothing:antialiased}
+  a{text-decoration:none;color:inherit}
+
+  .app{display:grid;grid-template-columns:248px 1fr;min-height:100vh}
+
+  /* sidebar */
+  .side{background:var(--sidebar);color:#cfc9ec;padding:22px 16px;display:flex;flex-direction:column;position:sticky;top:0;height:100vh}
+  .side .brand{display:flex;align-items:center;gap:9px;font-weight:800;font-size:19px;color:#fff;padding:6px 10px 22px;letter-spacing:-.4px}
+  .side .brand .mark{width:30px;height:30px;border-radius:8px;background:var(--grad);display:grid;place-items:center;font-size:16px}
+  .side .ai{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .menu{display:flex;flex-direction:column;gap:3px}
+  .menu a{display:flex;align-items:center;gap:12px;padding:11px 13px;border-radius:9px;font-size:14.5px;font-weight:600;color:#b3acd6;cursor:pointer}
+  .menu a .i{width:18px;text-align:center;opacity:.9}
+  .menu a:hover{background:rgba(255,255,255,.06);color:#fff}
+  .menu a.active{background:var(--grad);color:#fff}
+  .menu .sep{margin:14px 10px 8px;font-size:11px;letter-spacing:.6px;text-transform:uppercase;color:#6f689a}
+  .side .foot{margin-top:auto;padding:12px 10px;border-top:1px solid rgba(255,255,255,.08)}
+  .side .foot .acct{display:flex;align-items:center;gap:10px;font-size:13px}
+  .side .foot .av{width:30px;height:30px;border-radius:50%;background:var(--grad);display:grid;place-items:center;color:#fff;font-weight:800}
+  .side .foot .nm{font-weight:700;color:#fff;font-size:13.5px}
+  .side .foot .em{color:#8c85b8;font-size:12px}
+
+  /* main */
+  main{padding:30px 36px}
+  .top{display:flex;align-items:center;justify-content:space-between;margin-bottom:26px;flex-wrap:wrap;gap:12px}
+  .top h1{font-size:24px;letter-spacing:-.6px;font-weight:800}
+  .top .right{display:flex;align-items:center;gap:12px}
+  .pill{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:8px 14px;font-weight:700;font-size:13px}
+  .dot-ok{width:9px;height:9px;border-radius:50%;background:var(--green);box-shadow:0 0 0 4px var(--green-bg)}
+  .btn{background:var(--grad);color:#fff;border:none;padding:10px 18px;border-radius:9px;font-weight:700;font-size:14px;cursor:pointer}
+  .btn.ghost{background:#fff;border:1.5px solid var(--purple);color:var(--purple)}
+
+  .panel{display:none;animation:fade .2s}
+  .panel.show{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:24px}
+  .stat{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px}
+  .stat .k{color:var(--muted);font-size:13px;font-weight:600}
+  .stat .v{font-size:28px;font-weight:800;letter-spacing:-1px;margin-top:6px}
+  .stat .v small{font-size:14px;color:var(--muted);font-weight:600}
+  .bar{height:8px;border-radius:999px;background:#eceaf3;overflow:hidden;margin-top:12px}
+  .bar i{display:block;height:100%;background:var(--grad)}
+
+  .box{background:#fff;border:1px solid var(--line);border-radius:14px;padding:24px;margin-bottom:20px}
+  .box h3{font-size:16px;font-weight:800;margin-bottom:4px}
+  .box .desc{color:var(--muted);font-size:14px;margin-bottom:18px}
+  table{width:100%;border-collapse:collapse}
+  th,td{text-align:left;padding:13px 12px;border-bottom:1px solid var(--line);font-size:14px}
+  th{color:var(--muted);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.4px}
+  tr:last-child td{border-bottom:none}
+  .tag{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;padding:4px 10px;border-radius:999px}
+  .tag.ok{background:var(--green-bg);color:var(--green)} .tag.warn{background:var(--amber-bg);color:var(--amber)} .tag.off{background:#f1f0f5;color:#9a95b3}
+  .mini-bar{width:120px;height:7px;border-radius:999px;background:#eceaf3;overflow:hidden;display:inline-block;vertical-align:middle;margin-right:8px}
+  .mini-bar i{display:block;height:100%;background:var(--grad)}
+  .switch{position:relative;width:42px;height:24px;background:#d9d5ea;border-radius:999px;cursor:pointer;display:inline-block;transition:.2s}
+  .switch.on{background:var(--green)}
+  .switch i{position:absolute;top:3px;left:3px;width:18px;height:18px;background:#fff;border-radius:50%;transition:.2s}
+  .switch.on i{left:21px}
+  .cap{width:90px;padding:7px 9px;border:1px solid var(--line);border-radius:8px;font-size:13px}
+  .connect-row{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+  .connect-row input{flex:1;min-width:240px;padding:12px 14px;border:1px solid var(--line);border-radius:9px;font-size:14px}
+  .hint{color:var(--muted);font-size:13px;margin-top:10px}
+
+  @media(max-width:820px){.app{grid-template-columns:1fr}.side{position:static;height:auto;flex-direction:row;flex-wrap:wrap;align-items:center}.menu{flex-direction:row;flex-wrap:wrap}.side .foot{display:none}.cards{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- SIDEBAR -->
+  <aside class="side">
+    <a class="brand" href="index.html"><span class="mark">d</span>dokan <span class="ai">AI</span></a>
+    <div class="menu" id="menu">
+      <a class="active" data-p="overview"><span class="i">▦</span> Overview</a>
+      <a data-p="sites"><span class="i">🌐</span> Connected Sites</a>
+      <a data-p="usage"><span class="i">📊</span> Usage</a>
+      <a data-p="vendors"><span class="i">👥</span> Vendor AI</a>
+      <a data-p="billing"><span class="i">💳</span> Billing</a>
+      <div class="sep">Setup</div>
+      <a data-p="connect"><span class="i">🔌</span> Connect a Site</a>
+      <a data-p="settings"><span class="i">⚙️</span> Settings</a>
+    </div>
+    <div class="foot">
+      <div class="acct"><span class="av">M</span><span><span class="nm">marketplace.com</span><br><span class="em">Pro plan</span></span></div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main>
+    <div class="top">
+      <h1 id="title">Overview</h1>
+      <div class="right">
+        <span class="pill"><span class="dot-ok"></span> Connected · Pro</span>
+        <button class="btn" onclick="go('connect')">+ Connect site</button>
+      </div>
+    </div>
+
+    <!-- OVERVIEW -->
+    <section class="panel show" id="overview">
+      <div class="cards">
+        <div class="stat"><div class="k">Current plan</div><div class="v">Pro</div></div>
+        <div class="stat"><div class="k">Credits this month</div><div class="v">6,900 <small>/ 20,000</small></div><div class="bar"><i style="width:34%"></i></div></div>
+        <div class="stat"><div class="k">Connected sites</div><div class="v">2</div></div>
+        <div class="stat"><div class="k">AI-enabled vendors</div><div class="v">38</div></div>
+      </div>
+      <div class="box">
+        <h3>Connected sites</h3>
+        <div class="desc">Every site on this account draws from one shared credit pool.</div>
+        <table>
+          <thead><tr><th>Site</th><th>Plan</th><th>Credits used</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td><b>marketplace.com</b></td><td>Pro</td><td><span class="mini-bar"><i style="width:38%"></i></span>5,700 / 15,000</td><td><span class="tag ok"><span class="dot-ok"></span>Connected</span></td></tr>
+            <tr><td><b>shop.example.org</b></td><td>Starter</td><td><span class="mini-bar"><i style="width:24%"></i></span>1,200 / 5,000</td><td><span class="tag ok"><span class="dot-ok"></span>Connected</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- CONNECTED SITES -->
+    <section class="panel" id="sites">
+      <div class="box">
+        <h3>Connected sites</h3>
+        <div class="desc">Manage which WordPress sites are linked to this Dokan AI account.</div>
+        <table>
+          <thead><tr><th>Site</th><th>Plan</th><th>Credits used</th><th>Last sync</th><th>Status</th><th></th></tr></thead>
+          <tbody>
+            <tr><td><b>marketplace.com</b></td><td>Pro</td><td>5,700 / 15,000</td><td>2 min ago</td><td><span class="tag ok"><span class="dot-ok"></span>Connected</span></td><td><button class="btn ghost" style="padding:7px 12px">Disconnect</button></td></tr>
+            <tr><td><b>shop.example.org</b></td><td>Starter</td><td>1,200 / 5,000</td><td>1 hr ago</td><td><span class="tag ok"><span class="dot-ok"></span>Connected</span></td><td><button class="btn ghost" style="padding:7px 12px">Disconnect</button></td></tr>
+          </tbody>
+        </table>
+        <div class="connect-row"><button class="btn" onclick="go('connect')">+ Connect a new site</button></div>
+      </div>
+    </section>
+
+    <!-- USAGE -->
+    <section class="panel" id="usage">
+      <div class="cards">
+        <div class="stat"><div class="k">Text actions</div><div class="v">4,100</div></div>
+        <div class="stat"><div class="k">Images (50 cr ea)</div><div class="v">56</div></div>
+        <div class="stat"><div class="k">Builds</div><div class="v">3</div></div>
+        <div class="stat"><div class="k">Est. spend</div><div class="v">$4.20</div></div>
+      </div>
+      <div class="box">
+        <h3>Credit usage by site (this period)</h3>
+        <div class="desc">6,900 of 20,000 credits used across all connected sites.</div>
+        <table>
+          <thead><tr><th>Site</th><th>Texts</th><th>Images</th><th>Credits</th><th>% of pool</th></tr></thead>
+          <tbody>
+            <tr><td><b>marketplace.com</b></td><td>3,200</td><td>50</td><td>5,700</td><td><span class="mini-bar"><i style="width:38%"></i></span>38%</td></tr>
+            <tr><td><b>shop.example.org</b></td><td>900</td><td>6</td><td>1,200</td><td><span class="mini-bar"><i style="width:8%"></i></span>8%</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- VENDOR AI (reselling) -->
+    <section class="panel" id="vendors">
+      <div class="box">
+        <h3>Vendor AI access</h3>
+        <div class="desc">Grant AI to vendors via a <b>subscription pack</b> (vendor buys → AI unlocks) or enable any vendor <b>outside subscription</b> with a per-vendor credit cap.</div>
+        <table>
+          <thead><tr><th>Vendor</th><th>Source</th><th>Monthly cap</th><th>Used</th><th>AI enabled</th></tr></thead>
+          <tbody>
+            <tr><td><b>Acme Store</b></td><td><span class="tag ok">Subscription · Pro Pack</span></td><td><input class="cap" value="500"></td><td>180</td><td><span class="switch on" onclick="this.classList.toggle('on')"><i></i></span></td></tr>
+            <tr><td><b>Bright Goods</b></td><td><span class="tag warn">Manual grant</span></td><td><input class="cap" value="200"></td><td>140</td><td><span class="switch on" onclick="this.classList.toggle('on')"><i></i></span></td></tr>
+            <tr><td><b>Cloud Crafts</b></td><td><span class="tag off">None</span></td><td><input class="cap" value="0"></td><td>0</td><td><span class="switch" onclick="this.classList.toggle('on')"><i></i></span></td></tr>
+          </tbody>
+        </table>
+        <div class="connect-row"><button class="btn">Save vendor settings</button><button class="btn ghost">Configure subscription packs</button></div>
+        <p class="hint">Subscription-pack AI is configured in <b>WP Admin → Dokan → Subscriptions</b>; manual grants + caps here apply to vendors outside a pack.</p>
+      </div>
+    </section>
+
+    <!-- BILLING -->
+    <section class="panel" id="billing">
+      <div class="box">
+        <h3>Billing</h3>
+        <div class="desc">Plan, renewal, and invoices for this Dokan AI account.</div>
+        <table>
+          <tbody>
+            <tr><td><b>Plan</b></td><td>Pro — $18/mo (billed yearly, $216)</td></tr>
+            <tr><td><b>Renews</b></td><td>Jun 17, 2027</td></tr>
+            <tr><td><b>Payment</b></td><td>Visa •••• 4242</td></tr>
+            <tr><td><b>Pooled credits</b></td><td>20,000 / mo (Pro 15,000 + Starter 5,000 across sites)</td></tr>
+          </tbody>
+        </table>
+        <div class="connect-row"><button class="btn">Upgrade plan</button><button class="btn ghost">View invoices</button></div>
+      </div>
+    </section>
+
+    <!-- CONNECT -->
+    <section class="panel" id="connect">
+      <div class="box">
+        <h3>Connect a site</h3>
+        <div class="desc">Link a WordPress site to this Dokan AI account — one click, no API key.</div>
+        <button class="btn" style="margin-bottom:8px">🔗 Connect with Dokan AI (one-click)</button>
+        <div class="hint">or paste a connection key from <b>WP Admin → Dokan → Settings → AI</b>:</div>
+        <div class="connect-row">
+          <input placeholder="dkai_live_xxxxxxxxxxxxxxxx">
+          <button class="btn">Connect</button>
+        </div>
+        <p class="hint">No model keys are stored in your site — inference runs on Dokan AI's servers. BYOK is an optional separate field for admins who supply their own provider key.</p>
+      </div>
+    </section>
+
+    <!-- SETTINGS -->
+    <section class="panel" id="settings">
+      <div class="box">
+        <h3>Account settings</h3>
+        <div class="desc">Routing and access defaults applied to all connected sites.</div>
+        <table>
+          <tbody>
+            <tr><td><b>Model routing</b></td><td>Quality-first (managed) — best model per task</td></tr>
+            <tr><td><b>BYOK</b></td><td><span class="switch" onclick="this.classList.toggle('on')"><i></i></span> &nbsp;Use my own provider key (Pro)</td></tr>
+            <tr><td><b>Vendor AI default</b></td><td><span class="switch on" onclick="this.classList.toggle('on')"><i></i></span> &nbsp;Allow vendors via subscription packs</td></tr>
+            <tr><td><b>Image downscale guard</b></td><td><span class="switch on" onclick="this.classList.toggle('on')"><i></i></span> &nbsp;Downscale inputs to ~768px (saves credits)</td></tr>
+          </tbody>
+        </table>
+        <div class="connect-row"><button class="btn">Save settings</button></div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+  const titles={overview:'Overview',sites:'Connected Sites',usage:'Usage',vendors:'Vendor AI',billing:'Billing',connect:'Connect a Site',settings:'Settings'};
+  function go(p){
+    document.querySelectorAll('.panel').forEach(s=>s.classList.toggle('show',s.id===p));
+    document.querySelectorAll('#menu a').forEach(a=>a.classList.toggle('active',a.dataset.p===p));
+    document.getElementById('title').textContent=titles[p]||'Overview';
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+  document.querySelectorAll('#menu a').forEach(a=>a.addEventListener('click',()=>go(a.dataset.p)));
+</script>
+
+</body>
+</html>
