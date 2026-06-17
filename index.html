@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dokan AI — Pricing</title>
+<meta name="description" content="Managed AI for your WooCommerce multivendor marketplace — product copy, image generation, semantic search, and an AI marketplace builder. One subscription per site." />
+<style>
+  :root{
+    --purple:#7047EB; --purple-2:#A244FF; --pink:#E23B7B;
+    --ink:#1a1633; --muted:#6c6890; --line:#ebe9f2; --soft:#f7f6fb;
+    --green:#16b364; --green-bg:#e7f8ef;
+    --grad:linear-gradient(120deg,#7047EB 0%,#A244FF 60%,#E23B7B 130%);
+    --radius:16px; --shadow:0 24px 60px -28px rgba(80,40,200,.40);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;
+    color:var(--ink);background:#fff;line-height:1.55;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+
+  header{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:72px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:21px;letter-spacing:-.5px}
+  .brand .mark{width:32px;height:32px;border-radius:9px;background:var(--grad);display:grid;place-items:center;color:#fff;font-size:17px;font-weight:800}
+  .brand .ai{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .nav nav{display:flex;gap:30px;color:#4a4668;font-weight:500;font-size:15px}
+  .nav nav a:hover{color:var(--purple)}
+  .nav .cta{background:var(--grad);color:#fff;padding:11px 22px;border-radius:10px;font-weight:600;font-size:14px}
+
+  .hero{text-align:center;padding:78px 0 10px}
+  .trust{display:inline-block;background:var(--soft);color:var(--purple);font-weight:600;font-size:13px;padding:8px 16px;border-radius:999px;margin-bottom:24px;border:1px solid var(--line)}
+  .hero h1{font-size:52px;line-height:1.04;letter-spacing:-1.8px;font-weight:800;max-width:820px;margin:0 auto 18px}
+  .hero h1 .g{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero p{color:var(--muted);font-size:19px;max-width:640px;margin:0 auto}
+
+  .toggle{display:inline-flex;align-items:center;gap:14px;margin:38px auto 6px;font-weight:600;color:var(--muted);background:var(--soft);padding:8px 14px;border-radius:999px;border:1px solid var(--line)}
+  .switch{position:relative;width:56px;height:30px;background:var(--grad);border-radius:999px;cursor:pointer;border:none}
+  .switch .dot{position:absolute;top:3px;left:3px;width:24px;height:24px;background:#fff;border-radius:50%;transition:.25s;box-shadow:0 2px 6px rgba(0,0,0,.2)}
+  .switch.annual .dot{left:29px}
+  .toggle .on{color:var(--ink)}
+  .toggle .save{background:var(--green-bg);color:var(--green);font-size:12px;font-weight:700;padding:4px 10px;border-radius:999px}
+
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;padding:40px 0 8px;align-items:stretch}
+  .card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:30px 26px;display:flex;flex-direction:column;position:relative;transition:.2s}
+  .card:hover{box-shadow:0 16px 40px -26px rgba(80,40,200,.3)}
+  .card.pop{border:2px solid transparent;background:linear-gradient(#fff,#fff) padding-box,var(--grad) border-box;box-shadow:var(--shadow);transform:translateY(-10px)}
+  .badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--grad);color:#fff;font-size:12px;font-weight:700;padding:6px 16px;border-radius:999px;letter-spacing:.3px;white-space:nowrap}
+  .tier{font-size:19px;font-weight:800;letter-spacing:-.3px}
+  .target{color:var(--muted);font-size:13.5px;margin-top:4px;min-height:38px}
+  .price{margin:10px 0 2px;display:flex;align-items:baseline;gap:5px}
+  .price .amt{font-size:44px;font-weight:800;letter-spacing:-2px}
+  .price .per{color:var(--muted);font-weight:600;font-size:15px}
+  .billed{color:var(--muted);font-size:13px;min-height:18px}
+  .btn{margin:22px 0;width:100%;padding:14px;border-radius:11px;font-weight:700;font-size:15px;border:1.5px solid var(--purple);color:var(--purple);background:#fff;cursor:pointer;transition:.15s}
+  .btn:hover{background:var(--soft)}
+  .card.pop .btn{background:var(--grad);color:#fff;border:none}
+  .card.pop .btn:hover{filter:brightness(1.06)}
+  .inc{font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);margin-bottom:14px}
+  .feat{list-style:none;display:flex;flex-direction:column;gap:13px;font-size:14.5px}
+  .feat li{display:flex;gap:11px;align-items:flex-start;color:#3a3560}
+  .feat li b{color:var(--ink)}
+  .feat .ic{flex:0 0 20px;width:20px;height:20px;border-radius:50%;background:var(--green-bg);color:var(--green);display:grid;place-items:center;font-size:11px;font-weight:900;margin-top:1px}
+  .feat li.off{color:#b9b5ce}
+  .feat li.off .ic{background:#f1f0f5;color:#cdc9dc}
+
+  .fineprint{text-align:center;color:var(--muted);font-size:13.5px;max-width:780px;margin:30px auto 0;line-height:1.7}
+
+  .section-h{text-align:center;margin:90px 0 36px}
+  .section-h h2{font-size:36px;letter-spacing:-1px;font-weight:800}
+  .section-h p{color:var(--muted);margin-top:8px;font-size:17px}
+
+  table.cmp{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+  table.cmp th,table.cmp td{padding:15px 18px;text-align:center;border-bottom:1px solid var(--line);font-size:14.5px}
+  table.cmp thead th{background:#fff;font-weight:800;font-size:16px;position:sticky;top:72px}
+  table.cmp thead th.pop-col{color:var(--purple)}
+  table.cmp td:first-child,table.cmp th:first-child{text-align:left;font-weight:600;color:#3a3560}
+  .cat td{background:var(--soft);font-weight:800!important;color:var(--ink)!important;text-transform:uppercase;font-size:12.5px;letter-spacing:.6px}
+  .pop-col{background:#faf7ff}
+  .yes{color:var(--green);font-weight:900}
+  .no{color:#cdc9dc}
+  table.cmp tr:last-child td{border-bottom:none}
+
+  .faq{max-width:780px;margin:0 auto}
+  .q{background:#fff;border:1px solid var(--line);border-radius:12px;padding:0;margin-bottom:12px;overflow:hidden}
+  .q summary{padding:18px 22px;font-weight:700;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center}
+  .q summary::-webkit-details-marker{display:none}
+  .q summary::after{content:"+";color:var(--purple);font-size:22px;font-weight:400}
+  .q[open] summary::after{content:"–"}
+  .q p{padding:0 22px 20px;color:var(--muted);font-size:15px}
+
+  .finalcta{margin:96px 0 0;background:var(--grad);border-radius:24px;padding:60px 40px;text-align:center;color:#fff}
+  .finalcta h2{font-size:34px;letter-spacing:-1px;font-weight:800;margin-bottom:10px}
+  .finalcta p{opacity:.92;font-size:17px;margin-bottom:26px}
+  .finalcta a{background:#fff;color:var(--purple);font-weight:700;padding:14px 30px;border-radius:11px;display:inline-block}
+
+  footer{padding:60px 0;color:var(--muted);font-size:14px;text-align:center;border-top:1px solid var(--line);margin-top:70px}
+
+  @media(max-width:1000px){.cards{grid-template-columns:repeat(2,1fr)}.card.pop{transform:none}.hero h1{font-size:40px}table.cmp{font-size:12px;display:block;overflow-x:auto}}
+  @media(max-width:560px){.cards{grid-template-columns:1fr}.nav nav{display:none}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <div class="brand"><span class="mark">d</span>dokan <span class="ai">AI</span></div>
+    <nav><a href="#pricing">Pricing</a><a href="#compare">Compare</a><a href="#faq">FAQ</a><a>Docs</a></nav>
+    <a class="cta" href="#pricing">Buy Now</a>
+  </div>
+</header>
+
+<section class="wrap hero" id="pricing">
+  <span class="trust">✨ Managed AI · no API keys · billed per site</span>
+  <h1>AI that runs your <span class="g">whole marketplace</span></h1>
+  <p>Product copy, image generation &amp; enhancement, semantic search, and an AI marketplace builder — one managed subscription. Pick the plan that fits your store size.</p>
+
+  <div class="toggle">
+    <span id="lbl-m" class="on">Monthly</span>
+    <button class="switch annual" id="sw" aria-label="Toggle billing"><span class="dot"></span></button>
+    <span id="lbl-a" class="on">Annual</span>
+    <span class="save">Save ~25%</span>
+  </div>
+</section>
+
+<section class="wrap">
+  <div class="cards">
+
+    <div class="card">
+      <div class="tier">Free</div>
+      <div class="target">Try the AI Builder · any store</div>
+      <div class="price"><span class="amt">$0</span><span class="per">/mo</span></div>
+      <div class="billed">Free forever</div>
+      <button class="btn">Get started</button>
+      <div class="inc">Includes</div>
+      <ul class="feat">
+        <li><span class="ic">✓</span><span><b>2 marketplace builds</b> (one-time demo)</span></li>
+        <li class="off"><span class="ic">✓</span><span>No ongoing credits</span></li>
+        <li class="off"><span class="ic">✓</span><span>No semantic search</span></li>
+        <li class="off"><span class="ic">✓</span><span>No image generation</span></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="tier">Starter</div>
+      <div class="target">Small marketplaces · 1–10 vendors</div>
+      <div class="price"><span class="amt" data-m="$9" data-a="$7">$7</span><span class="per">/mo</span></div>
+      <div class="billed" data-m="billed monthly" data-a="$84 billed yearly">$84 billed yearly</div>
+      <button class="btn">Buy Now</button>
+      <div class="inc">3,000 credits / month</div>
+      <ul class="feat">
+        <li><span class="ic">✓</span><span><b>3,000</b> AI texts <b>or</b> <b>60</b> AI images <span style="color:var(--muted)">(mix freely)</span></span></li>
+        <li><span class="ic">✓</span><span>Product copy &amp; extraction</span></li>
+        <li><span class="ic">✓</span><span>Image generate + enhance</span></li>
+        <li><span class="ic">✓</span><span>Semantic search · <b>2,000</b> indexed</span></li>
+        <li><span class="ic">✓</span><span>AI marketplace builder</span></li>
+        <li class="off"><span class="ic">✓</span><span>BYOK · Priority support</span></li>
+      </ul>
+    </div>
+
+    <div class="card pop">
+      <span class="badge">★ Most Popular</span>
+      <div class="tier">Growth</div>
+      <div class="target">Medium marketplaces · 10–50 vendors</div>
+      <div class="price"><span class="amt" data-m="$15" data-a="$12">$12</span><span class="per">/mo</span></div>
+      <div class="billed" data-m="billed monthly" data-a="$144 billed yearly">$144 billed yearly</div>
+      <button class="btn">Buy Now</button>
+      <div class="inc">7,500 credits / month</div>
+      <ul class="feat">
+        <li><span class="ic">✓</span><span><b>7,500</b> AI texts <b>or</b> <b>150</b> AI images <span style="color:var(--muted)">(mix freely)</span></span></li>
+        <li><span class="ic">✓</span><span>Everything in Starter</span></li>
+        <li><span class="ic">✓</span><span>Semantic search · <b>25,000</b> indexed</span></li>
+        <li><span class="ic">✓</span><span>Extraction cards (auto-triage)</span></li>
+        <li><span class="ic">✓</span><span><b>BYOK</b> — your key, unlimited</span></li>
+        <li class="off"><span class="ic">✓</span><span>Priority support</span></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="tier">Scale</div>
+      <div class="target">Large marketplaces · 50–200 vendors</div>
+      <div class="price"><span class="amt" data-m="$23" data-a="$18">$18</span><span class="per">/mo</span></div>
+      <div class="billed" data-m="billed monthly" data-a="$216 billed yearly">$216 billed yearly</div>
+      <button class="btn">Buy Now</button>
+      <div class="inc">15,000 credits / month</div>
+      <ul class="feat">
+        <li><span class="ic">✓</span><span><b>15,000</b> AI texts <b>or</b> <b>300</b> AI images <span style="color:var(--muted)">(mix freely)</span></span></li>
+        <li><span class="ic">✓</span><span>Everything in Growth</span></li>
+        <li><span class="ic">✓</span><span>Semantic search · <b>100,000</b> indexed</span></li>
+        <li><span class="ic">✓</span><span>BYOK · unlimited own key</span></li>
+        <li><span class="ic">✓</span><span><b>Priority support</b></span></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <p class="fineprint">One credit pool per site, owned by the marketplace admin. <b>1 text = 1 credit · 1 image (generate or enhance) = 50 credits</b> — mix any way you like. 200+ vendor marketplaces: use <b>BYOK</b> (your own key) for unlimited volume. Dokan&rsquo;s built-in AI Assistant stays free with your own API key.</p>
+</section>
+
+<section class="wrap" id="compare">
+  <div class="section-h"><h2>Compare plans</h2><p>Every detail, side by side</p></div>
+  <table class="cmp">
+    <thead>
+      <tr><th>Feature</th><th>Free</th><th>Starter</th><th class="pop-col">Growth</th><th>Scale</th></tr>
+    </thead>
+    <tbody>
+      <tr class="cat"><td colspan="5">Plan &amp; limits</td></tr>
+      <tr><td>Target store (vendors)</td><td>demo</td><td>1–10</td><td class="pop-col">10–50</td><td>50–200</td></tr>
+      <tr><td>Monthly credits</td><td class="no">—</td><td>3,000</td><td class="pop-col">7,500</td><td>15,000</td></tr>
+      <tr><td>Max AI images / mo</td><td class="no">—</td><td>60</td><td class="pop-col">150</td><td>300</td></tr>
+      <tr><td>Max AI texts / mo</td><td class="no">—</td><td>3,000</td><td class="pop-col">7,500</td><td>15,000</td></tr>
+      <tr><td>Products indexed</td><td class="no">—</td><td>2,000</td><td class="pop-col">25,000</td><td>100,000</td></tr>
+
+      <tr class="cat"><td colspan="5">AI features</td></tr>
+      <tr><td>Product copy &amp; extraction</td><td class="no">—</td><td class="yes">✓</td><td class="pop-col yes">✓</td><td class="yes">✓</td></tr>
+      <tr><td>Semantic search</td><td class="no">—</td><td class="yes">✓</td><td class="pop-col yes">✓</td><td class="yes">✓</td></tr>
+      <tr><td>Image generation + enhance</td><td class="no">—</td><td class="yes">✓</td><td class="pop-col yes">✓</td><td class="yes">✓</td></tr>
+      <tr><td>AI marketplace builder</td><td>2 builds</td><td class="yes">✓</td><td class="pop-col yes">✓</td><td class="yes">✓</td></tr>
+      <tr><td>Extraction cards</td><td class="no">—</td><td class="yes">✓</td><td class="pop-col yes">✓</td><td class="yes">✓</td></tr>
+
+      <tr class="cat"><td colspan="5">Control &amp; support</td></tr>
+      <tr><td>BYOK (own API key)</td><td class="no">—</td><td class="no">—</td><td class="pop-col yes">✓</td><td class="yes">✓</td></tr>
+      <tr><td>Admin per-vendor caps</td><td class="no">—</td><td class="yes">✓</td><td class="pop-col yes">✓</td><td class="yes">✓</td></tr>
+      <tr><td>Priority support</td><td class="no">—</td><td class="no">—</td><td class="pop-col no">—</td><td class="yes">✓</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="wrap" id="faq">
+  <div class="section-h"><h2>Frequently asked</h2></div>
+  <div class="faq">
+    <details class="q"><summary>What is a credit?</summary><p>One unit of AI work. A text action (description, title, SEO, translation, extraction) = 1 credit. An image — generated or enhanced — = 50 credits. It&rsquo;s one shared pool; spend it any way you like.</p></details>
+    <details class="q"><summary>Do I need an OpenAI or Gemini key?</summary><p>No. We run and manage the models for you (Claude, Gemini, OpenAI) and route each task to the best one for quality and cost. Prefer your own key? Switch to BYOK on Growth and Scale for unlimited use.</p></details>
+    <details class="q"><summary>Is this billed per vendor?</summary><p>No — it&rsquo;s one subscription per marketplace, managed by the site admin. Your vendors use the AI tools; you own the plan and the credit pool, and can cap per-vendor usage.</p></details>
+    <details class="q"><summary>I have a huge catalog. Will the credits last?</summary><p>Monthly credits are sized for ongoing work — new and edited products. For a one-time enrichment of a large existing catalog, switch to BYOK and use your own key with no limit.</p></details>
+    <details class="q"><summary>Can I switch between monthly and annual?</summary><p>Yes. Annual saves about 25% over monthly. You can upgrade, downgrade, or switch billing any time.</p></details>
+  </div>
+</section>
+
+<section class="wrap">
+  <div class="finalcta">
+    <h2>Bring AI to your marketplace today</h2>
+    <p>Start free with 2 marketplace builds — no card, no API key.</p>
+    <a href="#pricing">Get started free</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">dokan <span style="background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:800">AI</span> — managed AI for WooCommerce multivendor marketplaces · © weDevs</div>
+</footer>
+
+<script>
+  const sw=document.getElementById('sw');
+  const setMode=(annual)=>{
+    sw.classList.toggle('annual',annual);
+    document.getElementById('lbl-a').classList.toggle('on',annual);
+    document.getElementById('lbl-m').classList.toggle('on',!annual);
+    document.querySelectorAll('[data-m]').forEach(el=>{el.textContent=annual?el.dataset.a:el.dataset.m;});
+  };
+  sw.addEventListener('click',()=>setMode(!sw.classList.contains('annual')));
+  setMode(true);
+</script>
+
+</body>
+</html>
